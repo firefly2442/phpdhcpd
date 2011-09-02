@@ -1,0 +1,43 @@
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+body
+{
+	background-color: #FFFFFF;
+}
+
+table {
+	border-style: outset;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+p.error {
+	color: #FF0000;
+}
+
+tr.row0 {
+	text-align: center;
+	background-color: #FEFEF2
+}
+
+tr.row1 {
+	text-align: center;
+	background-color: #E0EEEE
+}
+
+tr.table_title{
+  background-color: #486591;
+  color: white;
+  text-align: center;
+}
+
+a:link    {color:#0066FF}
+a:visited {color:#0066FF}
+a:active  {color:#000099}
+a:hover   {color:#000099}
