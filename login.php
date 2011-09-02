@@ -1,7 +1,7 @@
 <?php
 require_once("config.php");
 
-if ($_POST['password'] == $password || $password == "")
+if ((isset($_POST['password']) && $_POST['password'] == $password) || $password == "")
 {
 	//login successful or no login required
 	//read leases file
