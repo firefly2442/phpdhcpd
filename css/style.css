@@ -1,3 +1,8 @@
+body {
+	margin: 10px;
+	padding: 0;
+}
+
 a {
 	text-decoration: none;
 }
@@ -18,7 +23,8 @@ table {
 }
 
 p.error {
-	color: #FF0000;
+	color: red;
+	text-align: center;
 }
 
 tr.row0 {
