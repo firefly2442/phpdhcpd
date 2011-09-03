@@ -3,6 +3,20 @@ phpdhcpd
 http://www.rivetcode.com
 ---------------------------
 
+
+-----------
+9/3/11
+Version 0.5
+-----------
+
+-convert to PHP session based authentication instead of javascript
+-merge in changes from Pierre C. (thank you!)
+	-sorting by column
+	-MAC address hardware identification
+	-searching/filtering entries
+-general code cleanup
+
+
 -----------
 8/27/08
 Version 0.1
