@@ -1,40 +1,40 @@
+<?php
+require_once("config.php");
+require_once("functions.php");
+
+//Check login session
+session_start();
+
+if (!$_SESSION['logged_in'])
+{
+	//check fails
+	header("Location: login.php?status=session");
+	exit();
+}
+?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>phpdhcpd</title>
-	<script language="Javascript">
-	function xmlhttpPost(str) {
-	    var xmlHttpReq = false;
-	    var self = this;
-	    
-	    if (window.XMLHttpRequest) // Firefox/Safari
-	        self.xmlHttpReq = new XMLHttpRequest();
-	    else if (window.ActiveXObject) // IE
-	        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-	    self.xmlHttpReq.open('POST', str, true);
-	    self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    self.xmlHttpReq.onreadystatechange = function() {
-	        if (self.xmlHttpReq.readyState == 4)
-	            updatepage(self.xmlHttpReq.responseText);
-	    }
-	    self.xmlHttpReq.send(getquerystring());
-	}
-
-	function getquerystring() {
-	    var form = document.forms['login'];
-	    var word = form.password.value;
-	    qstr = 'password=' + escape(word);
-	    return qstr;
-	}
-
-	function updatepage(str)
-	{
-	    document.getElementById("result").innerHTML = str;
-	}
+	<script language="JavaScript" type="text/javascript">
+		function sortby (to,p) {
+			var myForm = document.createElement("form");
+			myForm.method="post" ;
+			myForm.action = to ;
+			for (var k in p) {
+				var myInput = document.createElement("input") ;
+				myInput.setAttribute("name", k) ;
+				myInput.setAttribute("value", p[k]);
+				myForm.appendChild(myInput) ;
+			}
+			document.body.appendChild(myForm) ;
+			myForm.submit() ;
+			document.body.removeChild(myForm) ;
+		}
 	</script>
-
 </head>
 <body>
 <center>
@@ -42,33 +42,143 @@
 </center>
 
 <?php
-require_once("config.php");
+//read leases file
+if (isset($_POST['searchfilter'])) {
+	$searchfilter = $_POST['searchfilter'];
+} else {
+	$searchfilter = "";
+}
+if (isset($_POST['sort_column'])) {
+	$sort_column = $_POST['sort_column'];
+} else {
+	$sort_column = 0;
+}
 
-
-//check for password authentication
-if ($password != "")
+if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 {
-	//check password
-	?>
-	<center>
-	<div id="result">
-	<form name="login">
-	<p>Password: <input name="password" type="password">  
-	<input value="Submit" type="button" onclick='JavaScript:xmlhttpPost("login.php")'></p>
-	</form>
-	</div>
-	</center>
-	<?php
+	$open_file = fopen($dhcpd_leases_file, "r") or die("Unable to open DHCP leases file.");
+	if ($open_file)
+	{
+		if ($searchfilter != "") {
+			$searchfiledmsg = $searchfilter;
+		} else {
+			$searchfiledmsg = "Type to search";
+		}
+		//Create a 2-dimensional table for the dhcplease file
+		$dhcptable = array(array());
+		//Call the dhcplease file parser
+		$dhcptable = parser($open_file);
+
+		?>
+
+		<form action = "index.php"  accept-charset="UTF-8" method="post" id="search-form">
+		Search Filter:
+		<input type="text" maxlength="255" name="searchfilter" id="searchfilter" size="20" placeholder="Enter Search" 
+		<?php
+			echo " value = '" . $searchfilter . "'>";
+		?>
+		<input type="submit" name="Search" value="Search">
+
+		<?php
+		if ($searchfilter != "")
+			echo "<a href='index.php'>Clear Search</a>\n";
+		?>
+		
+		</form>
+		<br><br>
+		<?php
+			echo "<p>Total number of entries in DHCP lease table: " . count($dhcptable) . "</p>\n";
+		?>
+
+		<table>
+		<tr class="table_title">
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-1',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			IP Address
+			<a href="javascript:sortby('index.php',{sort_column:'1',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-2',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			Start Time
+			<a href="javascript:sortby('index.php',{sort_column:'2',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-3',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			End Time
+			<a href="javascript:sortby('index.php',{sort_column:'3',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-4',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			Lease Expires
+			<a href="javascript:sortby('index.php',{sort_column:'4',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-5',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			MAC Address
+			<a href="javascript:sortby('index.php',{sort_column:'5',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-6',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			Client Identifier
+			<a href="javascript:sortby('index.php',{sort_column:'6',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+		<td width="14%"><b>
+			<a href="javascript:sortby('index.php',{sort_column:'-7',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
+			</a>
+			Hostname
+			<a href="javascript:sortby('index.php',{sort_column:'7',searchfilter:'<?php echo $searchfilter;?>'})">
+				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
+			</a>
+		</b></td>
+
+		</tr>
+		<?php
+		//Display the dhcp lease table using the filter and ordered
+		print_table($dhcptable, $searchfilter, $sort_column);
+		fclose($open_file);
+		?>
+		</table>
+		<?php
+	}
 }
 else
 {
-	require("login.php");
+	echo "<p class='error'>The DHCP leases file does not exist or does not have sufficient read privileges.</p>";
 }
-
 ?>
 
 <br><hr>
 <center><a href="http://www.rivetcode.com">phpdhcpd</a>
-<br>Version: 0.1</center>
+<br>Version: <?php echo $version;?></center>
 </body>
 </html>
+
