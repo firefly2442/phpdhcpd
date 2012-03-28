@@ -14,6 +14,10 @@ $dhcpd_leases_file = "/var/lib/dhcp3/dhcpd.leases";
 //an htaccess file.
 $password = "";
 
+//Run MAC address vendor check
+//Note: this can be taxing on systems with a large leases file
+$mac_vendor = true;
+
 
 //phpdhcpd version
 //You don't have to change this

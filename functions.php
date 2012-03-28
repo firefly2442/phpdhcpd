@@ -176,27 +176,33 @@ function compare_hostname($a, $b)
 
 function getmacvendor($mac_unformated)
 {
-	//Can be retrived on nmap http://nmap.org/book/nmap-mac-prefixes.html 
-	//or via http://standards.ieee.org/develop/regauth/oui/oui.txt
-	//Location of the mac vendor list file
-	$mac_vendor_file = "./nmap-mac-prefixes";
-
-	$mac = substr(strtoupper(str_replace(array(":"," ","-"), "", $mac_unformated)),0,6);
-
-	$open_file = fopen($mac_vendor_file, "r") or die("Unable to open MAC VENDOR file.");
-	if ($open_file)
+	require("config.php");
+	if ($mac_vendor == true)
 	{
-		while (!feof($open_file))
+		//Can be retrived on nmap http://nmap.org/book/nmap-mac-prefixes.html
+		//or via http://standards.ieee.org/develop/regauth/oui/oui.txt
+		//Location of the mac vendor list file
+		$mac_vendor_file = "./nmap-mac-prefixes";
+
+		$mac = substr(strtoupper(str_replace(array(":"," ","-"), "", $mac_unformated)),0,6);
+
+		$open_file = fopen($mac_vendor_file, "r") or die("Unable to open MAC VENDOR file.");
+		if ($open_file)
 		{
-			 $read_line = fgets($open_file, 4096);
-			 if (substr($read_line, 0, 6) == $mac) {
-				return substr($read_line, 7, -1);
-			 }
-		}
+			while (!feof($open_file))
+			{
+				 $read_line = fgets($open_file, 4096);
+				 if (substr($read_line, 0, 6) == $mac) {
+					return substr($read_line, 7, -1);
+				 }
+			}
 		
-		fclose($open_file);
+			fclose($open_file);
+		}
+		return "Unknown device";
+	} else {
+		return "Vendor Check Disabled";
 	}
-	return "Unknown device";
 }
 
 
