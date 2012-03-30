@@ -174,6 +174,11 @@ else
 {
 	echo "<p class='error'>The DHCP leases file does not exist or does not have sufficient read privileges.</p>";
 }
+
+//display message if the cache file isn't writeable
+if ($cache_vendor_results && !is_writeable("./nmap-mac-prefixes_cache")) {
+		echo "<p class='error'>The nmap-mac-prefixes_cache file doesn't have sufficient write privileges.</p>";
+}
 ?>
 
 <br><hr>

@@ -183,21 +183,45 @@ function getmacvendor($mac_unformated)
 		//or via http://standards.ieee.org/develop/regauth/oui/oui.txt
 		//Location of the mac vendor list file
 		$mac_vendor_file = "./nmap-mac-prefixes";
+		$mac_vendor_file_cache = "./nmap-mac-prefixes_cache";
 
 		$mac = substr(strtoupper(str_replace(array(":"," ","-"), "", $mac_unformated)),0,6);
 
+		if ($cache_vendor_results) {
+			// Open the MAC VENDOR CACHE file
+			$open_file_cache = fopen($mac_vendor_file_cache, "r") or die("Unable to open MAC VENDOR CACHE file.");
+
+			// First try to lookup the vendor in the cache file
+			if ($open_file_cache) {
+				while (!feof($open_file_cache)) {
+					 $read_line = fgets($open_file_cache, 4096);
+					 if (substr($read_line, 0, 6) == $mac) {
+						return substr($read_line, 7, -1);
+					 }
+				}
+				fclose($open_file_cache);
+			}
+		}
+
+		// Second do regular lookup in the main file
 		$open_file = fopen($mac_vendor_file, "r") or die("Unable to open MAC VENDOR file.");
-		if ($open_file)
-		{
-			while (!feof($open_file))
-			{
+		if ($open_file) {
+			//open vendor cache file for writing (appending)
+			if ($cache_vendor_results && is_writable($mac_vendor_file_cache)) {
+				$open_file_cache_a = fopen($mac_vendor_file_cache, "a") or die("Unable to open MAC VENDOR CACHE file for writing.");
+			}
+			while (!feof($open_file)) {
 				 $read_line = fgets($open_file, 4096);
 				 if (substr($read_line, 0, 6) == $mac) {
+					if ($cache_vendor_results && is_writable($mac_vendor_file_cache)) {
+						//write the "hit" to the cache file
+						fwrite($open_file_cache_a, $read_line);
+					}
 					return substr($read_line, 7, -1);
 				 }
 			}
-		
 			fclose($open_file);
+			fclose($open_file_cache_a);
 		}
 		return "Unknown device";
 	} else {

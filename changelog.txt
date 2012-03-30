@@ -3,6 +3,15 @@ phpdhcpd
 http://www.rivetcode.com
 ---------------------------
 
+-----------
+3/29/12
+Version 0.6
+-----------
+
+-MAC address vendor lookup is now an option in the config file
+-merge in code changes from Martin (thank you!)
+	-a cache file is used for MAC address vendors,
+	this speeds up lookup times considerably on large lease files
 
 -----------
 9/3/11
