@@ -290,57 +290,35 @@ function print_table($dhcptable, $searchfilter, $sort_column)
 	
 	$displayed_line_number = 0;
 	if ($order >= 0) {
-		//Read every line of the table
-		for ($line = 0; $line < count($dhcptable); $line++){
-			//Check if the line contains the searched request
-			if ($searchfilter != "")
-			{
-				$displayline = 0;
-				for ($i = 0; $i < 7; $i++){
-					if (stristr (strtolower($dhcptable[$line][$i]),strtolower($searchfilter))== TRUE) {
-						$displayline = 1;
-					}
-				}
-
-				if ($displayline == 1) {
-					$css_num = $displayed_line_number % 2;
-					print_line($dhcptable[$line], $css_num);
-					$displayed_line_number++;
-				}
-			}
-			else
-			{
-				$css_num = $displayed_line_number % 2;
-				print_line($dhcptable[$line], $css_num);
-				$displayed_line_number++;
-			}
-		}
+		$line = 0;
+	} else {
+		$line = count($dhcptable)-1;
 	}
-	else
-	{
-		for ($line = count($dhcptable)-1; $line >= 0; $line--){
-			//Check if the line contains the searched request
-			if ($searchfilter != "")
-			{
-				$displayline = 0;
-				for ($i = 0; $i < 7; $i++){
-					if(stristr (strtolower($dhcptable[$line][$i]), strtolower($searchfilter))== TRUE) {
-						$displayline = 1;
-					}
-				}
 
-				if ($displayline == 1) {
+	//Read every line of the table to see it it should be printed
+	while ($line < count($dhcptable) && $line >= 0) {
+		//Check if the line contains the searched request
+		if ($searchfilter != "") {
+			$displayline = 0;
+			for ($i = 0; $i < 7; $i++){
+				if (stristr (strtolower($dhcptable[$line][$i]), strtolower($searchfilter))== TRUE) {
 					$css_num = $displayed_line_number % 2;
 					print_line($dhcptable[$line], $css_num);
 					$displayed_line_number++;
+					break;
 				}
 			}
-			else
-			{
-				$css_num = $displayed_line_number % 2;
-				print_line($dhcptable[$line], $css_num);
-				$displayed_line_number++;
-			}
+		} else {
+			$css_num = $displayed_line_number % 2;
+			print_line($dhcptable[$line], $css_num);
+			$displayed_line_number++;
+		}
+
+		//increment or decrement line (based on if we are ascending or descending)
+		if ($order >= 0) {
+			$line++;
+		} else {
+			$line--;
 		}
 	}
 }
