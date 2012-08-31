@@ -18,27 +18,30 @@ function parser($open_file)
 			}
 			else if ($tok == "starts")
 			{
-				$row_array[$line_number][1] =   intToDay(strtok(" "));
-				$row_array[$line_number][1] = $row_array[$line_number][1]." - " . strtok(" ") . " ";
+				$day = intToDay(strtok(" "));
+				$row_array[$line_number][1] = strtok(" ") . " ";
 				$time = strtok(" ");
 				$time = str_replace(";", "", $time);
-				$row_array[$line_number][1] = $row_array[$line_number][1].$time ;
+				$row_array[$line_number][1] = $row_array[$line_number][1].$time;
+				$row_array[$line_number][1] = $row_array[$line_number][1]."(".$day.")";
 			}
 			else if ($tok == "ends")
 			{
-				$row_array[$line_number][2] = intToDay(strtok(" "));
-				$row_array[$line_number][2] = $row_array[$line_number][2]." - " . strtok(" ") . " ";
+				$day = intToDay(strtok(" "));
+				$row_array[$line_number][2] = strtok(" ") . " ";
 				$time = strtok(" ");
 				$time = str_replace(";", "", $time);
-				$row_array[$line_number][2] = $row_array[$line_number][2].$time ;
+				$row_array[$line_number][2] = $row_array[$line_number][2].$time;
+				$row_array[$line_number][2] = $row_array[$line_number][2]."(".$day.")";
 			}	
 			else if ($tok == "tstp")
 			{
-				$row_array[$line_number][3] = intToDay(strtok(" "));
-				$row_array[$line_number][3] = $row_array[$line_number][3]." - " . strtok(" ") . " ";
+				$day = intToDay(strtok(" "));
+				$row_array[$line_number][3] = strtok(" ") . " ";
 				$time = strtok(" ");
 				$time = str_replace(";", "", $time);
-				$row_array[$line_number][3] = $row_array[$line_number][3].$time ;
+				$row_array[$line_number][3] = $row_array[$line_number][3].$time;
+				$row_array[$line_number][3] = $row_array[$line_number][3]."(".$day.")";
 			}
 			else if ($tok == "hardware")
 			{
@@ -54,20 +57,19 @@ function parser($open_file)
 				$uid = strtok(" ");
 				$replace = array(".", "\"", ";");
 				$uid = str_replace($replace, "", $uid);
-				$row_array[$line_number][5] = $uid ;
+				$row_array[$line_number][5] = $uid;
 			}
 			else if ($tok == "client-hostname")
 			{
 				$hostname = strtok(" ");
 				$replace = array("\"", ";");
 				$hostname = str_replace($replace, "", $hostname);
-				$row_array[$line_number][6] = $hostname ;
+				$row_array[$line_number][6] = $hostname;
 			}
 			else if ($tok == "}\n")
 			{
 				$row_array[$line_number][6] = $row_array[$line_number][6];
 				$line_number++;
-				
 			}
 		}
 	}
