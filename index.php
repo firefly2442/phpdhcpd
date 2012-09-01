@@ -1,6 +1,6 @@
 <?php
 require_once("config.php");
-require_once("functions.php");
+require_once("parser.class.php");
 
 //Check login session
 session_start();
@@ -64,10 +64,10 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		} else {
 			$searchfiledmsg = "Type to search";
 		}
-		//Create a 2-dimensional table for the dhcplease file
-		$dhcptable = array(array());
+
 		//Call the dhcplease file parser
-		$dhcptable = parser($open_file);
+		$parser = new ParseClass();
+		$parser->parser($open_file);
 
 		?>
 
@@ -86,9 +86,6 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		
 		</form>
 		<br><br>
-		<?php
-			echo "<p>Total number of entries in DHCP lease table: " . count($dhcptable) . "</p>\n";
-		?>
 
 		<table>
 		<tr class="table_title">
@@ -163,11 +160,13 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		</tr>
 		<?php
 		//Display the dhcp lease table using the filter and ordered
-		print_table($dhcptable, $searchfilter, $sort_column);
+		$parser->print_table($searchfilter, $sort_column);
 		fclose($open_file);
 		?>
 		</table>
 		<?php
+		echo "<p>Total number of entries in DHCP lease table: " . count($parser->dhcptable) . "</p>\n";
+		echo "<p>Number of entries displayed on this page: " . $parser->filtered_number_display . "</p>\n";
 	}
 }
 else
