@@ -1,5 +1,5 @@
 ---phpdhcpd---
-Version: 0.6
+Version: 0.7
 License: GPLv2 (see license.txt)
 
 http://www.rivetcode.com
@@ -11,6 +11,8 @@ the file /var/lib/dhcp3/dhcpd.leases.  This is created
 by a DHCP server.  This file
 contains all the information regarding a DHCP server
 and the IP addresses that it has allocated to users.
+Compatibility with other DHCP lease servers is unknown
+at this time.
 
 Installation is pretty simple.  Just copy the folder
 to where you want it in your "www" directory in apache.

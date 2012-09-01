@@ -29,5 +29,5 @@ $cache_vendor_results = true;
 
 //phpdhcpd version
 //You don't have to change this
-$version = "0.6";
+$version = "0.7";
 ?>

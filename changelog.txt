@@ -4,6 +4,15 @@ http://www.rivetcode.com
 ---------------------------
 
 -----------
+9/1/12
+Version 0.7
+-----------
+
+-add checkbox to filter only active leases
+-refactored parse code into class
+-move day of week to end to fix date sorting
+
+-----------
 3/29/12
 Version 0.6
 -----------
