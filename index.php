@@ -20,19 +20,19 @@ if (!$_SESSION['logged_in'])
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>phpdhcpd</title>
 	<script language="JavaScript" type="text/javascript">
-		function sortby (to,p) {
+		function sortby (to, p) {
 			var myForm = document.createElement("form");
-			myForm.method="post" ;
-			myForm.action = to ;
+			myForm.method = "post";
+			myForm.action = to;
 			for (var k in p) {
-				var myInput = document.createElement("input") ;
-				myInput.setAttribute("name", k) ;
+				var myInput = document.createElement("input");
+				myInput.setAttribute("name", k);
 				myInput.setAttribute("value", p[k]);
-				myForm.appendChild(myInput) ;
+				myForm.appendChild(myInput);
 			}
-			document.body.appendChild(myForm) ;
+			document.body.appendChild(myForm);
 			myForm.submit() ;
-			document.body.removeChild(myForm) ;
+			document.body.removeChild(myForm);
 		}
 	</script>
 </head>
@@ -176,7 +176,7 @@ else
 
 //display message if the cache file isn't writeable
 if ($cache_vendor_results && !is_writeable("./nmap-mac-prefixes_cache")) {
-		echo "<p class='error'>The nmap-mac-prefixes_cache file doesn't have sufficient write privileges.</p>";
+	echo "<p class='error'>The nmap-mac-prefixes_cache file doesn't have sufficient write privileges.</p>";
 }
 ?>
 
