@@ -238,8 +238,21 @@ class ParseClass
 		}
 	}
 
+	private function checkActiveLease($dhcp_line)
+	{
+		//Returns true or false depending on if the lease is currently active or not
+		$leaseStart = strtotime(substr($dhcp_line[1], 0, strpos($dhcp_line[1], "(")));
+		$leaseEnd = strtotime(substr($dhcp_line[2], 0, strpos($dhcp_line[2], "(")));
 
-	public function print_table($searchfilter, $sort_column)
+		if (time() >= $leaseStart && time() <= $leaseEnd) {
+		  return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public function print_table($searchfilter, $sort_column, $onlyactiveleases)
 	{
 		$order = 0;
 		switch ($sort_column) {
@@ -304,21 +317,26 @@ class ParseClass
 
 		//Read every line of the table to see if it should be printed
 		while ($line < count($this->dhcptable) && $line >= 0) {
+
 			//Check if the line contains the searched request
 			if ($searchfilter != "") {
 				$displayline = 0;
 				for ($i = 0; $i < 7; $i++) {
 					if (stristr (strtolower($this->dhcptable[$line][$i]), strtolower($searchfilter))== TRUE) {
-						$css_num = $displayed_line_number % 2;
-						$this->print_line($this->dhcptable[$line], $css_num);
-						$displayed_line_number++;
-						break;
+						if (!$onlyactiveleases || ($onlyactiveleases && $this->checkActiveLease($this->dhcptable[$line]))) {
+							$css_num = $displayed_line_number % 2;
+							$this->print_line($this->dhcptable[$line], $css_num);
+							$displayed_line_number++;
+							break;
+						}
 					}
 				}
 			} else {
-				$css_num = $displayed_line_number % 2;
-				$this->print_line($this->dhcptable[$line], $css_num);
-				$displayed_line_number++;
+				if (!$onlyactiveleases || ($onlyactiveleases && $this->checkActiveLease($this->dhcptable[$line]))) {
+					$css_num = $displayed_line_number % 2;
+					$this->print_line($this->dhcptable[$line], $css_num);
+					$displayed_line_number++;
+				}
 			}
 
 			//increment or decrement line (based on if we are ascending or descending)

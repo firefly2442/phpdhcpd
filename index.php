@@ -53,6 +53,11 @@ if (isset($_POST['sort_column'])) {
 } else {
 	$sort_column = 0;
 }
+if (isset($_POST['onlyactiveleases'])) {
+	$onlyactiveleases = true;
+} else {
+	$onlyactiveleases = false;
+}
 
 if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 {
@@ -72,6 +77,12 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		?>
 
 		<form action = "index.php"  accept-charset="UTF-8" method="post" id="search-form">
+		<input type="checkbox" name="onlyactiveleases" value="true" 
+		<?php
+		if ($onlyactiveleases)
+			echo "checked='true'";
+		?>
+		/> Only display active leases</br>
 		Search Filter:
 		<input type="text" maxlength="255" name="searchfilter" id="searchfilter" size="20" placeholder="Enter Search" 
 		<?php
@@ -160,7 +171,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		</tr>
 		<?php
 		//Display the dhcp lease table using the filter and ordered
-		$parser->print_table($searchfilter, $sort_column);
+		$parser->print_table($searchfilter, $sort_column, $onlyactiveleases);
 		fclose($open_file);
 		?>
 		</table>
