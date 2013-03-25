@@ -1,0 +1,47 @@
+
+# An example leases file, for testing only
+
+lease 192.168.0.229 {
+  starts 1 2011/09/1 14:01:31;
+  ends 2 2011/09/2 14:01:31;
+  tstp 4 2011/09/4 14:00:00;
+  binding state active;
+  next binding state free;
+  hardware ethernet 00:0c:76:8b:c5:20;
+  uid "\002\000\014\213\304\026";
+  client-hostname "paul";
+}
+
+lease 192.168.0.223 {
+  starts 3 2011/08/3 12:03:29;
+  ends 4 2011/08/4 12:03:29;
+  tstp 6 2011/08/6 12:00:00;
+  binding state active;
+  next binding state free;
+  hardware ethernet 00:07:E9:74:7D:78;
+  uid "\021\010\014\213\304\026";
+  client-hostname "jeff";
+}
+
+lease 192.168.0.213 {
+  starts 5 2011/08/5 08:03:11;
+  ends 6 2011/09/6 09:03:11;
+  tstp 8 2011/09/8 09:00:00;
+  binding state active;
+  next binding state free;
+  hardware ethernet 00:07:E9:74:7D:81;
+  uid "\001\010\014\213\104\026";
+  client-hostname "steve";
+}
+
+lease 192.168.0.224 {
+  starts 2 2004/09/2 14:01:31;
+  ends 3 2005/09/3 14:01:31;
+  tstp 5 2006/09/5 23:17:32;
+  binding state active;
+  next binding state free;
+  hardware ethernet 22:0c:56:8b:c4:01;
+  uid "\001\010\024\213\304\026";
+  client-hostname "tim";
+}
+

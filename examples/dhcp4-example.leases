@@ -1,0 +1,30 @@
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.2.4
+
+lease 172.16.2.95 {
+  starts 3 2012/12/19 21:32:06;
+  ends 3 2012/12/19 21:32:07;
+  tstp 3 2012/12/19 21:32:07;
+  cltt 3 2012/12/19 21:32:06;
+  binding state free;
+  hardware ethernet 91:27:f4:0f:df:7a;
+  uid "\001\240'\344\017\017z";
+}
+lease 172.16.2.207 {
+  starts 3 2012/12/19 21:31:28;
+  ends 3 2012/12/19 21:41:28;
+  tstp 3 2012/12/19 21:41:28;
+  cltt 3 2012/12/19 21:31:28;
+  binding state free;
+  hardware ethernet a4:ab:81:9d:01:5c;
+  uid "\001$\293\201\355\301\\";
+}
+lease 172.16.2.210 {
+  starts 3 2012/12/19 21:30:33;
+  ends 3 2012/12/19 23:30:33;
+  tstp 3 2012/12/19 23:30:33;
+  cltt 3 2012/12/19 21:30:33;
+  binding state free;
+  hardware ethernet p8:30:62:4m:af:06;
+  uid "\001\3400bN\257\106";
+}
