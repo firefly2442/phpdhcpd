@@ -22,10 +22,6 @@ has write access for the nmap-mac-prefixes_cache file.
 Now just navigate to your website and that directory.
 It should come up and display the information.
 
-Support:
-If you need help, please visit the website above.
-
-
 Images are from the Tango Desktop Project (version 0.8.90):
 Released under public domain
 
