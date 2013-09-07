@@ -192,7 +192,7 @@ if ($cache_vendor_results && !is_writeable("./nmap-mac-prefixes_cache")) {
 ?>
 
 <br><hr>
-<center><a href="http://www.rivetcode.com">phpdhcpd</a>
+<center><a href="https://github.com/firefly2442/phpdhcpd/">phpdhcpd</a>
 <br>Version: <?php echo $version;?></center>
 </body>
 </html>
