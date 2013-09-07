@@ -2,10 +2,6 @@
 Version: 0.7
 License: GPLv2 (see license.txt)
 
-http://www.rivetcode.com
-
-Thank you for downloading this program!
-
 phpdhcpd provides a nice online interface for viewing
 the file /var/lib/dhcp3/dhcpd.leases.  This is created
 by a DHCP server.  This file
