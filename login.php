@@ -1,4 +1,3 @@
-
 <?php
 require_once("config.php");
 
@@ -49,7 +48,7 @@ session_destroy();
 	</center>
 
 <br><hr>
-<center><a href="http://www.rivetcode.com">phpdhcpd</a>
+<center><a href="https://github.com/firefly2442/phpdhcpd/">phpdhcpd</a>
 <br>Version: <?php echo $version;?></center>
 </body>
 </html>
