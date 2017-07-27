@@ -118,7 +118,7 @@ class ParseClass
 			switch ($i) {
 			case 0: 
 				//IP Address
-				echo "<tr class='row".$css_num."'><td>" . $row[0]. "</td>\n"; 
+				echo "<tr class='row".$css_num."'><td><a href =http://".$row[0].">".$row[0]."</a></td>\n"; 
 				break;
 			case 1: 
 				//Start Time
