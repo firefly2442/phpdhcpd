@@ -13,13 +13,13 @@ if (!$_SESSION['logged_in'])
 }
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>phpdhcpd</title>
-	<script language="JavaScript" type="text/javascript">
+	<script type="text/javascript">
 		function sortby (to, p) {
 			var myForm = document.createElement("form");
 			myForm.method = "post";
@@ -37,9 +37,9 @@ if (!$_SESSION['logged_in'])
 	</script>
 </head>
 <body>
-<center>
+<div class="center">
 <h2>Current DHCP IP Addresses (Leases)</h2>
-</center>
+</div>
 
 <?php
 //read leases file
@@ -82,7 +82,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 		if ($onlyactiveleases)
 			echo "checked='true'";
 		?>
-		/> Only display active leases</br>
+		/> Only display active leases<br>
 		Search Filter:
 		<input type="text" maxlength="255" name="searchfilter" id="searchfilter" size="20" placeholder="Enter Search" 
 		<?php
@@ -100,7 +100,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 
 		<table>
 		<tr class="table_title">
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-1',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -110,7 +110,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 			</a>
 		</b></td>
 
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-2',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -120,7 +120,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 			</a>
 		</b></td>
 
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-3',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -130,7 +130,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 			</a>
 		</b></td>
 
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-4',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -140,7 +140,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 			</a>
 		</b></td>
 
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-5',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -149,7 +149,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
 			</a>
 		</b></td>
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-6',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -158,7 +158,7 @@ if (file_exists($dhcpd_leases_file) && is_readable($dhcpd_leases_file))
 				<img src="images/arrow_up.png" alt="Sort Ascending" title="Sort Ascending">
 			</a>
 		</b></td>
-		<td width="14%"><b>
+		<td style="width:14%;"><b>
 			<a href="javascript:sortby('index.php',{sort_column:'-7',searchfilter:'<?php echo $searchfilter;?>'})">
 				<img src="images/arrow_down.png" alt="Sort Descending" title="Sort Descending">
 			</a>
@@ -192,8 +192,10 @@ if ($cache_vendor_results && !is_writeable("./nmap-mac-prefixes_cache")) {
 ?>
 
 <br><hr>
-<center><a href="https://github.com/firefly2442/phpdhcpd/">phpdhcpd</a>
-<br>Version: <?php echo $version;?></center>
+<div class="center">
+<a href="https://github.com/firefly2442/phpdhcpd/">phpdhcpd</a>
+<br>Version: <?php echo $version;?>
+</div>
 </body>
 </html>
 

@@ -29,12 +29,16 @@ p.error {
 
 tr.row0 {
 	text-align: center;
-	background-color: #FEFEF2
+	background-color: #FEFEF2;
 }
 
 tr.row1 {
 	text-align: center;
-	background-color: #E0EEEE
+	background-color: #E0EEEE;
+}
+
+td {
+	padding: 4px;
 }
 
 tr.table_title{
@@ -47,3 +51,7 @@ a:link    {color:#0066FF}
 a:visited {color:#0066FF}
 a:active  {color:#000099}
 a:hover   {color:#000099}
+
+.center {
+	text-align: center;
+}
